@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: "Montserrat",sans-serif;
+    height: 100vh;
+    background: linear-gradient(to bottom,
+    #99B898 0%,
+    #99B898 50%,
+    #2A363B 50%,
+    #2A363B 100%
+    );
+    color: white;
+    overflow: hidden;
+}
+#container{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+.list-elements{
+    width: 40%;
+    height:fit-content;
+    margin-top: 6rem;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.263);
+    border-radius: 20px;
+}
+.div-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 20px;
+}
+.head {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+} 
+.input-element{
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border-style: none;
+}
+.add-button{
+    border-radius: 20px;
+    padding: 10px;
+    border-style: none;
+    color: white;
+    background-color: #1C4E80;
+    font-weight: 900;
+    transition: .5s ease-in-out color,.5s ease-in-out transform;
+    border: none;
+    text-align: center;
+}
+.add-button:hover{
+    cursor: pointer;
+    background-color: #1C4E80;
+    transform: scale(1.2);
+    font-weight: bold;
+    overflow: hidden;
+}
+.list-events{
+    margin: 35px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 1rem;
+}
+.lists-dis{
+    display: flex;
+    list-style: none;
+    font-size: 1.3rem;
+    margin-left: 10px;
+    padding: 2px;
+    justify-content: space-between;
+    font-weight: bold;
+    
+}
+i{
+    cursor: pointer;
+}
+i:hover{
+    color: red;
+}
+input{
+    background-color: #2A363B;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+input::placeholder{
+    color: white;
+}
+input:focus{
+    border: none;
+    border-style: none;
+}
+input:active{
+    border: none;
+    border-style: none;
+}
+@media(max-width:800px){
+    body{
+        height: 100vh;
+        overflow: hidden;
+    }
+    .list-elements{
+        width: 80%;
+    }
+}
