@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+body{
+    font-family: "Montserrat",sans-serif;
+    height: 100vh;
+    background: linear-gradient(to bottom,
+    #99B898 0%,
+    #99B898 50%,
+    #2A363B 50%,
+    #2A363B 100%
+    );
+    color: white;
+    overflow: hidden;
+}
+
+.auth-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+}
+form{
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.263);
+    border-radius: 20px;
+    margin-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    font-weight: 900;
+}
+form *{
+    padding: 10px;
+}
+form button{
+    margin-top: 20px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color:#1C4E80;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+form input{
+    border: none;
+    border-radius: 5px;
+}
+form input:focus,textarea:focus,
+select:focus{
+    border: none;
+    border-style: none;
+    outline: none;
+}
+form label{
+    font-size: 20px;
+}
+form input::placeholder{
+    font-weight: bold;
+}
+.link{
+    font-size: 21px;
+}
+h1{
+    display: flex;
+    justify-content: center;
+}
+.alert-danger{
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    height: fit-content;
+    width: 1rem;
+}
+.alert-success{
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    height: fit-content;
+    width: 1rem;
+}
+@media(max-width:800px){
+    body{
+        height: 100vh;
+        overflow: hidden;
+    }
+    form{
+        margin-top: -5rem;
+    }
+    h1{
+        margin-top: 1rem;
+    }
+}

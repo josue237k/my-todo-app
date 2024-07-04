@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List Kimmich</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/register.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ready to create an account let's go 😎</h1>
+        <div id="message"></div>
+        <div class="auth-buttons">
+            <form action="" method="post">
+                <label for="email">email</label>
+                <input type="email" placeholder="enter your email" class="input-email" name="username">
+                <label for="password">password</label>
+                <input type="password" name="password" placeholder="enter your password" class="input-passwd">
+                <button class="login-button">Register</button>
+                <p>Already have an account ? <a href="/views/home.html" target="_blank" class="link">Login</a></p>
+            </form>
+        </div>
+    <script src="https://kit.fontawesome.com/d41c25bf5d.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            const message=document.getElementById("message");
+            const params=new URLSearchParams(window.location.search);
+            const success_msg=params.get("success_msg");
+            const errorMsg=params.get("error_msg");
+            if (errorMsg) {
+                message.innerHTML="<div class='alert-danger'>"+{erromsg}+"</div>";
+            }
+            if (success_msg) {
+                message.innerHTML="<div class='alert-success'>"+{success_msg}+"</div>";
+            }
+        })
+    </script>
+</body>
+</html>
