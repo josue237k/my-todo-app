@@ -30,11 +30,37 @@ body{
 }
 .div-button{
     display: flex;
-    justify-content: center;
     margin-top: 1rem;
     padding: 20px;
+    align-items: center;
 }
-.head {
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+}
+nav ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+nav ul li{
+    list-style: none;
+    text-decoration: none;
+
+}
+.elements{
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+}
+.elements:hover{
+    color: #1C4E80;
+}
+.head form{
     margin: 20px;
     display: flex;
     justify-content: center;
@@ -53,16 +79,13 @@ body{
     color: white;
     background-color: #1C4E80;
     font-weight: 900;
-    transition: .5s ease-in-out color,.5s ease-in-out transform;
     border: none;
     text-align: center;
+    font-weight: bold;
 }
 .add-button:hover{
     cursor: pointer;
     background-color: #1C4E80;
-    transform: scale(1.2);
-    font-weight: bold;
-    overflow: hidden;
 }
 .list-events{
     margin: 35px;
