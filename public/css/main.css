@@ -137,3 +137,10 @@ input:active{
         width: 80%;
     }
 }
+@media (max-width:500px) {
+    ul{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}

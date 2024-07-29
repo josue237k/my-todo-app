@@ -1,19 +1,15 @@
 //jshint esversion:6
 
 //for development version
-// if(process.env.NODE_ENV !== "production"){
-//     
+// if (process.env.NODE_ENV !== "production") {
+    
 // }
 
-//require all our packets
+//require all our packages
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const mongoose = require("mongoose");
-const mongoDB = require("mongodb");
-const md5 = require("md5");
-const flash = require("connect-flash");
 const app = express();
 const path = require("path");
 const session = require("express-session");
@@ -22,15 +18,14 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-const { type } = require("os");
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const cors=require("cors");
 
 
-//initialise all the necceseray packets
+
+//initialise all the necceseray packages
 app.use(express.static(path.join(__dirname, "")));
-app.use(express.json());
 app.use(express.static(path.join(__dirname, "/views")))
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: "kimmich",
@@ -39,41 +34,42 @@ app.use(session({
 }));
 app.use(passport.initialize())
 app.use(passport.session());
-app.use(flash());
 app.use(passport.authenticate('session'));
+app.use(cors());
 
 //connection to database
 mongoose.connect("mongodb://127.0.0.1:27017/todoAppDB")
     .then(console.log("succesfully connected to database"))
     .catch(err => console.log(err));
+
+
 //task schema and model
 const taskschema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-        required: true
-    },
     content: {
         type: String,
-        required: true
+        require: true,
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
     }
 },
     { timestamps: true }
 );
 const task = mongoose.model("tasks", taskschema);
+
+
 //user schema and model
-
-
 const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     googleId: String,
-    spotifyId: String
+    spotifyId: String,
 },
     { timestamps: true }
 );
 
-//initialise pas the different plugins
+//initialise the different plugins
 userSchema.plugin(passportLocalMongoose)
 userSchema.plugin(findOrCreate)
 
@@ -91,11 +87,6 @@ passport.deserializeUser(function (user, cb) {
         return cb(null, user);
     });
 });
-
-
-// passport.deserializeUser(function (user, done) {
-//     done(null, user);
-// });
 //implement the google strategy
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -143,6 +134,7 @@ app.get(
 
 //All the get routes
 app.get("/", (req, res) => {
+
     res.sendFile(path.join(__dirname, "views", "home.html"));
 });
 app.get("/register", (req, res) => {
@@ -188,6 +180,18 @@ app.post("/register", (req, res) => {
         }
     })
 });
+app.post("/register.html", (req, res) => {
+    user.register({ username: req.body.username }, req.body.password, function (err, user) {
+        if (err) {
+            console.log(err)
+            res.redirect("/register.html")
+        } else {
+            passport.authenticate("local")(req, res, function () {
+                res.redirect("/views/main.html")
+            })
+        }
+    })
+});
 app.post("/", (req, res) => {
     const myUser = new user({
         username: req.body.username,
@@ -198,25 +202,29 @@ app.post("/", (req, res) => {
             console.log(err);
         } else {
             passport.authenticate("local")(req, res, function () {
-                res.redirect("/views/main.html")
+                res.redirect("/main.html");
             })
         }
     })
-    req.session.userId = user._id;
 })
 
-app.post("/main", async (req, res) => {
+app.post("/main.html", async (req, res,) => {
     try {
-        const post = new task({
-            content: req.body.content,
-            userId: req.user._id
-        })
-        await post.save();
-        res.send("task saved");
+        const myowntask =req.body.mdcontent;
+        const myuserId = req.user;
+        const mytask = new task({
+            userId: myuserId,
+            content: myowntask
+        });
+        console.log(mytask);
+        await mytask.save();
+        res.redirect("/main.html")
     } catch (error) {
         console.log(error);
     }
+
 })
+//when the user log out of his session
 app.get("/logout", async (req, res) => {
     req.logout(err => {
         if (err) {

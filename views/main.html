@@ -16,7 +16,9 @@
 <body>
     <div class="div-button">
         <nav>
-            <h1>KIMMICH TODO APP</h1>
+            <h1>
+                KIMMICH TODO APP
+            </h1>
             <ul>
                 <li>
                     <a href="/views/tasks" class="elements">view my tasks <i class="fa-solid fa-list-check"></i></a>
@@ -33,9 +35,9 @@
     <div id="container">
         <div class="list-elements">
             <div class="head">
-                <form action="" method="post">
-                    <input type="text" placeholder="Enter an element" class="input-element" name="content">
-                    <button class="add-button" type="submit">Add</button>
+                <form action="/main.html" method="post" >
+                    <input type="text" name="mdcontent" id="content" placeholder="Enter an element" class="input-element" required spellcheck="false">
+                    <button class="add-button">Add</button>
                 </form>
             </div>
             <ul class="list-events" title="Todo Tasks">
