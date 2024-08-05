@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/josue237k/kimmich-todo-app"
+    "url": "git+https://github.com/josue237k/kimmich-todo-app.git"
   },
   "author": "kimmich",
   "license": "ISC",
