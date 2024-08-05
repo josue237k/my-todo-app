@@ -12,8 +12,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const cors = require("cors");
 const mongodb = require('mongodb')
 
 
@@ -32,7 +30,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session());
 app.use(passport.authenticate('session'));
-app.use(cors());
+
 
 //connection to database
 mongoose.connect(process.env.MONGODB_ATLAS_STRING)
