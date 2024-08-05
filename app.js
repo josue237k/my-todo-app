@@ -1,9 +1,3 @@
-//jshint esversion:6
-
-//for development version
-// if (process.env.NODE_ENV !== "production") {
-    
-// }
 
 //require all our packages
 require("dotenv").config();
@@ -19,13 +13,16 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const cors=require("cors");
+const cors = require("cors");
+const mongodb = require('mongodb')
 
 
 
 //initialise all the necceseray packages
 app.use(express.static(path.join(__dirname, "")));
-app.use(express.static(path.join(__dirname, "/views")))
+app.use(express.static(path.join(__dirname, "views")))
+app.set('view engine', 'ejs')
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: "kimmich",
@@ -38,7 +35,7 @@ app.use(passport.authenticate('session'));
 app.use(cors());
 
 //connection to database
-mongoose.connect("mongodb://127.0.0.1:27017/todoAppDB")
+mongoose.connect(process.env.MONGODB_ATLAS_STRING)
     .then(console.log("succesfully connected to database"))
     .catch(err => console.log(err));
 
@@ -134,7 +131,6 @@ app.get(
 
 //All the get routes
 app.get("/", (req, res) => {
-
     res.sendFile(path.join(__dirname, "views", "home.html"));
 });
 app.get("/register", (req, res) => {
@@ -165,6 +161,48 @@ app.get("/main.html", (req, res) => {
     }
 
 });
+
+
+app.get("/tasks", async (req, res) => {
+    if (req.isAuthenticated()) {
+        try {
+            const tasks = await task.find({ userId: req.user });
+            res.render('tasks', { tasks })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    else {
+        res.redirect("/home.html")
+    }
+});
+
+//when the user log out of his session
+app.get("/logout", async (req, res) => {
+    req.logout(err => {
+        if (err) {
+            console.log(err);
+        } {
+            res.redirect("/");
+        }
+    });
+})
+
+//les delete routes
+app.delete('/tasks/:id', async (req, res) => {
+    if (req.isAuthenticated()) {
+        try {
+            const taskId = req.params.id;
+            await task.findByIdAndDelete(taskId);
+            res.status(200).json({ message: 'Task deleted successfully' });
+        } catch (error) {
+            res.status(500).json({ message: 'Server error' });
+        }
+    } else {
+        res.status(403).json({ message: 'Unauthorized' });
+    }
+});
+
 
 
 //all the post routes
@@ -210,7 +248,7 @@ app.post("/", (req, res) => {
 
 app.post("/main.html", async (req, res,) => {
     try {
-        const myowntask =req.body.mdcontent;
+        const myowntask = req.body.mdcontent;
         const myuserId = req.user;
         const mytask = new task({
             userId: myuserId,
@@ -224,16 +262,7 @@ app.post("/main.html", async (req, res,) => {
     }
 
 })
-//when the user log out of his session
-app.get("/logout", async (req, res) => {
-    req.logout(err => {
-        if (err) {
-            console.log(err);
-        } {
-            res.redirect("/");
-        }
-    });
-})
+
 
 
 

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 body{
     font-family: "Montserrat",sans-serif;
-    height: 100vh;
+    height: 100%;
     background: linear-gradient(to bottom,
     #99B898 0%,
     #99B898 50%,
@@ -107,27 +107,15 @@ h1{
 .auth .spotify:hover{
     color: #3c763d;
 }
-@media(max-width:800px){
-    body{
-        height: 100vh;
-        overflow: hidden;
+@media(width<=600px){
+    .auth-buttons{
+        height: 100%;
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
+        flex-direction: column;
     }
     h1{
         margin-top: 2rem;
-    }
-    .auth-buttons{
-        flex-direction: column;
-        gap: none;
-    }
-    .auth{
-        
-        height: 100vh;
-    }
-    form{
-        margin: auto 0;
-        height: 100vh;
     }
 }

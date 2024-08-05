@@ -6,7 +6,7 @@
 }
 body{
     font-family: "Montserrat",sans-serif;
-    height: 100vh;
+    height: 100%;
     background: linear-gradient(to bottom,
     #99B898 0%,
     #99B898 50%,
@@ -15,6 +15,7 @@ body{
     );
     color: white;
     overflow: hidden;
+    width: 100%;
 }
 #container{
     display: flex;
@@ -39,6 +40,7 @@ nav{
     justify-content: space-between;
     align-items: center;
     width: 100vw;
+    position: relative;
 }
 nav ul{
     display: flex;
@@ -49,7 +51,7 @@ nav ul{
 nav ul li{
     list-style: none;
     text-decoration: none;
-
+    position: relative;
 }
 .elements{
     text-decoration: none;
@@ -108,8 +110,19 @@ nav ul li{
 i{
     cursor: pointer;
 }
-i:hover{
-    color: red;
+.elements::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom:0 ;
+    width: 0;
+    height: 3px;
+    background-color: #1C4E80;
+    transition: all .6s ease-in-out;
+    
+}
+.elements:hover::after{
+    width: 100%;
 }
 input{
     background-color: #2A363B;
@@ -128,19 +141,24 @@ input:active{
     border: none;
     border-style: none;
 }
-@media(max-width:800px){
+@media(width<=768px){
     body{
-        height: 100vh;
-        overflow: hidden;
+        height: 100%;
     }
-    .list-elements{
-        width: 80%;
-    }
-}
-@media (max-width:500px) {
     ul{
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+    }
+    nav{
+        flex-direction: column;
+        align-items: center;
+    }
+    .navhead li {
+        margin: 0.5rem 0;
+        align-items: center;
+    }
+    .list-elements{
+        width: 90%;
     }
 }

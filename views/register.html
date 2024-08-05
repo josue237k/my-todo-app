@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,10 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/public/css/register.css">
 </head>
+
 <body>
-        <h1>Ready to create an account let's go 😎</h1>
-        <div id="message"></div>
+    <h1>Ready to create an account let's go 😎</h1>
+    <div class="container">
         <div class="auth-buttons">
             <form action="" method="post">
                 <label for="email">email</label>
@@ -34,21 +36,23 @@
                 </a>
             </div>
         </div>
-        
+    </div>
+
     <script src="https://kit.fontawesome.com/d41c25bf5d.js" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded",()=>{
-            const message=document.getElementById("message");
-            const params=new URLSearchParams(window.location.search);
-            const success_msg=params.get("success_msg");
-            const errorMsg=params.get("error_msg");
+        document.addEventListener("DOMContentLoaded", () => {
+            const message = document.getElementById("message");
+            const params = new URLSearchParams(window.location.search);
+            const success_msg = params.get("success_msg");
+            const errorMsg = params.get("error_msg");
             if (errorMsg) {
-                message.innerHTML="<div class='alert-danger'>"+{erromsg}+"</div>";
+                message.innerHTML = "<div class='alert-danger'>" + { erromsg } + "</div>";
             }
             if (success_msg) {
-                message.innerHTML="<div class='alert-success'>"+{success_msg}+"</div>";
+                message.innerHTML = "<div class='alert-success'>" + { success_msg } + "</div>";
             }
         })
     </script>
 </body>
+
 </html>
