@@ -86,7 +86,7 @@ passport.deserializeUser(function (user, cb) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://www.kimmichtodoapp.site/auth/google/main"
+    callbackURL: "https://www.kimmichtodoapp.site/auth/google/main"
 },
     async function (accessToken, refreshToken, profile, cb) {
         await user.findOrCreate({ googleId: profile.id, }, function (err, user) {
@@ -106,7 +106,7 @@ app.get('/auth/google/main',
 passport.use(new SpotifyStrategy({
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    callbackURL: "http://www.kimmichtodoapp.site/auth/spotify/main"
+    callbackURL: "https://www.kimmichtodoapp.site/auth/spotify/main"
 },
     function (accessToken, refreshToken, profile, cb) {
         user.findOrCreate({ spotifyId: profile.id }, function (err, user) {
